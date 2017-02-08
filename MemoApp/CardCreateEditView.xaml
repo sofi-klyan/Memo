@@ -1,0 +1,45 @@
+﻿<Window x:Class="MemoApp.CardCreateEditView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MemoApp"
+      mc:Ignorable="d"
+      Title="Create/Edit a card" Height="183.924" Width="229.386">
+    <Window.Resources>
+        <local:BooleanAndConverter x:Key="BooleanAndConverter" />
+    </Window.Resources>
+            <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="51*"/>
+            <RowDefinition Height="65*"/>
+            <RowDefinition Height="38*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Label x:Name="frontLbl" Content="Front" Grid.Row="0" Grid.Column="0" 
+               HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="42" Margin="31,3,0,0" />
+        <Label x:Name="backLbl" Content="Back" Grid.Row="0" Grid.Column="1" 
+               HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="42" Margin="31.2,3,0,0" />
+        <TextBox x:Name="frontTxtBox" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" 
+                 Height="45" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="81" Margin="10,4.8,0,0"/>
+        <TextBox x:Name="backTxtBox" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" 
+                 Height="45" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="81" Margin="10,4.8,0,0"/>
+
+        <Button x:Name="okBtn" Content="OK" Grid.Row="2" Grid.Column="0" 
+                HorizontalAlignment="Left" Height="17" Margin="10,7,0,0" VerticalAlignment="Top" Width="77" Click="okBtn_Click">
+            <Button.IsEnabled>
+                <MultiBinding Converter="{StaticResource BooleanAndConverter}">
+                    <Binding ElementName="frontTxtBox" Path="Text.Length" />
+                    <Binding ElementName="backTxtBox" Path="Text.Length"  />
+                </MultiBinding>
+            </Button.IsEnabled>
+        </Button>
+        <Button x:Name="cancelBtn" Content="Cancel" Grid.Row="2" Grid.Column="1" 
+                HorizontalAlignment="Left" Height="17" Margin="19.2,7,0,0" VerticalAlignment="Top" Width="72" Click="cancelBtn_Click" />
+
+    </Grid>
+</Window>

@@ -18,34 +18,47 @@ namespace MemoApp
     /// <summary>
     /// Interaction logic for DeckCreation.xaml
     /// </summary>
-    public partial class DeckCreateView : Window
+    public partial class CardCreateEditView : Window
     {
-        public DeckSet manager;
-        public DeckCreateView(DeckSet mgr)
+        private DeckSet manager;
+        private int deckInd;
+        private bool edit;
+        private int cardID;
+
+        public CardCreateEditView(DeckSet mgr, int ind, bool bEdit, int card = -1)
         {
             InitializeComponent();
             manager = mgr;
+            deckInd = ind;
+            edit = bEdit;
+            cardID = card;
         }
 
         private void okBtn_Click(object sender, RoutedEventArgs e)
         {
-            string deckName = deckNameTxtBox.Text;
-
-            // create new deck
-            if (manager != null)
+            if (manager != null)               
             {
-                if (manager.AddDeck(deckName))
+                bool res = false;
+                if (edit)
+                {
+                    res = manager.ReplaceCard(deckInd, cardID, frontTxtBox.Text, backTxtBox.Text);
+                }
+                else
+                {
+                    res = manager.AddCard(deckInd, frontTxtBox.Text, backTxtBox.Text);
+                }
+                if (res)
                 {
                     DialogResult = true;
                     return;
                 }                
             }
-            MessageBox.Show("Unable to create deck");
+            MessageBox.Show("Unable to add/edit a card");
         }
 
         private void cancelBtn_Click(object sender, RoutedEventArgs e)
         {
             Close();
-        }
+        }       
     }
 }

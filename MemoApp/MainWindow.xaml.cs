@@ -23,15 +23,72 @@ namespace MemoApp
 
     public class DeckPresenter
     {
-        public string Name;
+        public string Name { get; set; }
+
+        public DeckPresenter (string name)
+        {
+            Name = name;
+        }
     };
 
     public partial class MainWindow : Window
     {
-        ObservableCollection<DeckPresenter> deckList = new ObservableCollection<DeckPresenter>();
+        public ObservableCollection<DeckPresenter> DeckCollection { get; set; }
+
+        DeckSet manager;
         public MainWindow()
-        {
+        {           
+            DeckCollection = new ObservableCollection<DeckPresenter>();
             InitializeComponent();
+            this.DataContext = this;
+
+            if (false)
+            {
+                // TODO - add loading of deckset
+            }
+            else
+            {
+                // TODO - add creation of db
+                manager = new DeckSet();
+            }
+
+          //  DeckCollection.Add(new DeckPresenter("hhh"));
+           // DeckListView.ItemsSource = DeckCollection;//manager.DeckList;
+
+        }
+
+      
+
+        private void CreateDeckBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Window wnd = new DeckCreateView(manager);
+            wnd.ShowDialog();
+
+            Deck deck;
+            if (manager.GetLastDeck(out deck))
+            {
+                DeckCollection.Add(new DeckPresenter(deck.Name));
+            }
+           
+        }
+
+        private void MenuItem_Edit_Click(object sender, RoutedEventArgs e)
+        {
+            int deckInd = DeckListView.SelectedIndex;
+            var wnd = new DeckEditView(manager, deckInd);
+            wnd.Show();
+        }
+
+        private void MenuItem_Train_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MenuItem_Delete_Click(object sender, RoutedEventArgs e)
+        {
+            int deckInd = DeckListView.SelectedIndex;
+            DeckCollection.RemoveAt(deckInd);
+            manager.DeleteDeck(deckInd);
         }
     }
 }

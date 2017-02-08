@@ -7,43 +7,30 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <Button x:Name="CreateDeckBtn" Content="New deck" HorizontalAlignment="Left" Margin="37,64,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="CreateDeckBtn" Content="New deck" HorizontalAlignment="Left" Margin="37,64,0,0" VerticalAlignment="Top" Width="75"
+                Click="CreateDeckBtn_Click"/>
         <Button x:Name="TrainAllBtn" Content="Train all decks" HorizontalAlignment="Left" Margin="141,64,0,0" VerticalAlignment="Top" Width="75"/>
         <Button x:Name="DeleteAllBtn" Content="Delete all decks" HorizontalAlignment="Left" Margin="249,64,0,0" VerticalAlignment="Top" Width="90"/>
         <Button x:Name="ExportBtn" Content="Export" HorizontalAlignment="Left" Margin="376,64,0,0" VerticalAlignment="Top" Width="75"/>
-        <ListView x:Name="DeckListView" ItemsSource="{Binding DeckList}"
+        <ListView x:Name="DeckListView" ItemsSource="{ Binding DeckCollection}"
                   HorizontalAlignment="Left" Height="141" Margin="37,135,0,0" VerticalAlignment="Top" Width="414">
             <ListView.Resources>
-                <GridView x:Key="one">
-                    <GridViewColumn Header="Deck Name" >
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding id}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Name" >
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding name}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>                
+                <ContextMenu x:Key="deckContextMenu">
+                    <MenuItem Header="Edit" Click="MenuItem_Edit_Click"/>
+                    <MenuItem Header="Train" Click="MenuItem_Train_Click"/>
+                    <MenuItem Header="Delete" Click="MenuItem_Delete_Click"/>
+                </ContextMenu>
             </ListView.Resources>
             <ListView.ItemContainerStyle>
                 <Style TargetType="{x:Type ListViewItem}"  >
-                    <Setter Property="ContextMenu">
-                        <Setter.Value>
-                            <ContextMenu>
-                                <MenuItem Header="Edit" />
-                                <MenuItem Header="Train" />
-                                <MenuItem Header="Delete" />
-                            </ContextMenu>
-                        </Setter.Value>
-                    </Setter>
+                    <Setter Property="ContextMenu"  Value="{StaticResource deckContextMenu}"/>
                 </Style>
             </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Deck name" DisplayMemberBinding="{Binding Name}"/>
+                </GridView>
+            </ListView.View>
         </ListView>
 
     </Grid>
