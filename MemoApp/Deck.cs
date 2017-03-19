@@ -30,6 +30,23 @@ namespace MemoApp
             Name = name;
             DB = db;
         }
+        
+
+        public bool Rename (string name)
+        {
+           if (Name == name) return true;           
+                
+            if (DB != null)
+            {
+                if (!DB.RenameTable(Name, name))
+                {
+                   return false;
+                }
+            }
+
+            Name = name;
+            return true;
+        }
 
         public bool AddCard (Card card)
         {

@@ -18,6 +18,11 @@ namespace MemoApp
             throw new NotImplementedException();
         }
 
+        public bool RenameTable(string oldName, string newName)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool DeleteTable(string name)
         {
             throw new NotImplementedException();

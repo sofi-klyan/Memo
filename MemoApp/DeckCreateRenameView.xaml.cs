@@ -18,29 +18,50 @@ namespace MemoApp
     /// <summary>
     /// Interaction logic for DeckCreation.xaml
     /// </summary>
-    public partial class DeckCreateView : Window
+    /// 
+    public class DeckRenameInfo
     {
-        public DeckSet manager;
-        public DeckCreateView(DeckSet mgr)
+
+    }
+    public partial class DeckCreateRenameView : Window
+    {
+        private DeckSet manager;
+        private bool rename;
+        private int deckInd;
+
+        public DeckCreateRenameView(DeckSet mgr, bool bRename = false, int ind = -1)
         {
             InitializeComponent();
             manager = mgr;
+
+            rename = bRename;
+            deckInd = ind;
         }
 
         private void okBtn_Click(object sender, RoutedEventArgs e)
         {
             string deckName = deckNameTxtBox.Text;
 
-            // create new deck
             if (manager != null)
             {
-                if (manager.AddDeck(deckName))
+                if (!rename)
                 {
-                    DialogResult = true;
-                    return;
-                }                
+                    if (manager.AddDeck(deckName))
+                    {
+                        DialogResult = true;
+                        return;
+                    }
+                }
+                else
+                {
+                    if (manager.RenameDeck(deckName, deckInd))
+                    {
+                        DialogResult = true;
+                        return;
+                    }
+                }             
             }
-            MessageBox.Show("Unable to create deck");
+            MessageBox.Show("Unable to create/rename deck");
         }
 
         private void cancelBtn_Click(object sender, RoutedEventArgs e)

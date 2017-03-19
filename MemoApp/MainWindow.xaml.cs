@@ -61,7 +61,7 @@ namespace MemoApp
 
         private void CreateDeckBtn_Click(object sender, RoutedEventArgs e)
         {
-            Window wnd = new DeckCreateView(manager);
+            Window wnd = new DeckCreateRenameView(manager);
             wnd.ShowDialog();
 
             Deck deck;
@@ -70,6 +70,18 @@ namespace MemoApp
                 DeckCollection.Add(new DeckPresenter(deck.Name));
             }
            
+        }
+        private void MenuItem_Rename_Click(object sender, RoutedEventArgs e)
+        {
+            int deckInd = DeckListView.SelectedIndex;
+            Window wnd = new DeckCreateRenameView(manager, true, deckInd);
+            wnd.ShowDialog();
+
+            Deck deck;
+            if (manager.GetDeck(deckInd, out deck))
+            {
+                DeckCollection[deckInd].Name = deck.Name;
+            }
         }
 
         private void MenuItem_Edit_Click(object sender, RoutedEventArgs e)

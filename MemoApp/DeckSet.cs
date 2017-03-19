@@ -27,6 +27,16 @@ namespace MemoApp
             return true;
         }
 
+        public bool RenameDeck(string name, int ind)
+        {
+            if (DeckList.FindIndex(x => x.Name == name) != -1)
+            {
+                throw new Exception("Deck with this name already exists");
+            }
+            DeckList[ind].Rename(name);
+            return true;
+        }
+
         public bool DeleteDeck(int ind)
         {
             if ((ind < 0) || (ind >= DeckList.Count)) return false;

@@ -88,7 +88,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="DeckCreateView.xaml">
+    <Page Include="DeckCreateRenameView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -104,8 +104,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DeckCreateView.xaml.cs">
-      <DependentUpon>DeckCreateView.xaml</DependentUpon>
+    <Compile Include="DeckCreateRenameView.xaml.cs">
+      <DependentUpon>DeckCreateRenameView.xaml</DependentUpon>
     </Compile>
     <Compile Include="DeckEditView.xaml.cs">
       <DependentUpon>DeckEditView.xaml</DependentUpon>

@@ -18,6 +18,28 @@ namespace MemoApp
     /// <summary>
     /// Interaction logic for DeckCreation.xaml
     /// </summary>
+    
+    public class CardEditInfo
+    {
+        public bool Edit;
+        public int CardID;
+        public string Front;
+        public string Back;
+
+        public CardEditInfo(
+            bool edit = false,
+            int cardID = -1,
+            string front = "",
+            string back = ""
+            )
+        {
+            Edit = edit;
+            CardID = cardID;
+            Front = front;
+            Back = back;
+        }
+    }
+
     public partial class CardCreateEditView : Window
     {
         private DeckSet manager;
@@ -25,13 +47,19 @@ namespace MemoApp
         private bool edit;
         private int cardID;
 
-        public CardCreateEditView(DeckSet mgr, int ind, bool bEdit, int card = -1)
+        public string FrontText, BackText;
+
+        public CardCreateEditView(DeckSet mgr, int ind, CardEditInfo info)
         {
             InitializeComponent();
             manager = mgr;
             deckInd = ind;
-            edit = bEdit;
-            cardID = card;
+            edit = info.Edit;
+            cardID = info.CardID;
+            FrontText = info.Front;
+            BackText = info.Back;
+
+            this.DataContext = this;
         }
 
         private void okBtn_Click(object sender, RoutedEventArgs e)

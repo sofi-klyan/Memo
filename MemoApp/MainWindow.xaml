@@ -16,6 +16,7 @@
                   HorizontalAlignment="Left" Height="141" Margin="37,135,0,0" VerticalAlignment="Top" Width="414">
             <ListView.Resources>
                 <ContextMenu x:Key="deckContextMenu">
+                    <MenuItem Header="Rename" Click="MenuItem_Rename_Click"/>
                     <MenuItem Header="Edit" Click="MenuItem_Edit_Click"/>
                     <MenuItem Header="Train" Click="MenuItem_Train_Click"/>
                     <MenuItem Header="Delete" Click="MenuItem_Delete_Click"/>
