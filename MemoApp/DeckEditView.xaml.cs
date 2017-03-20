@@ -106,6 +106,11 @@ namespace MemoApp
             manager.DeleteCard(deckInd, cardID);
         }
 
+        private void closeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
         private bool loadCards()
         {
             bool result = false;

@@ -1,0 +1,44 @@
+﻿<Window x:Class="MemoApp.DeckEditView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MemoApp"
+      mc:Ignorable="d" d:DesignWidth="300" MaxWidth="300"
+      Title="Edit the deck" Height="385">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="112*" />
+            <RowDefinition Height="168*" />
+            <RowDefinition Height="57*" />
+        </Grid.RowDefinitions>
+        <Button x:Name="addCardBtn" Content="Add a card" Grid.Row="0"
+                HorizontalAlignment="Left" Height="37" Margin="29,25,0,0" VerticalAlignment="Top" 
+                Width="71" Click="addCardBtn_Click"/>
+        <ListView x:Name="CardListView" ItemsSource="{Binding CardCollection}"
+                  HorizontalAlignment="Left" Height="169"  VerticalAlignment="Top" Width="251" Margin="10,79,0,0" Grid.RowSpan="2">
+            <ListView.Resources>
+                <ContextMenu x:Key="cardContextMenu">
+                    <MenuItem Header="Edit" Click="MenuItem_Edit_Click"/>
+                    <MenuItem Header="Delete" Click="MenuItem_Delete_Click"/>
+                </ContextMenu>
+            </ListView.Resources>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}"  >
+                    <Setter Property="ContextMenu"  Value="{StaticResource cardContextMenu}"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Card ID" Width="60" DisplayMemberBinding="{Binding ID}"/>
+                    <GridViewColumn Header="Front" Width="100" DisplayMemberBinding="{Binding Front}"/>
+                    <GridViewColumn Header="Back" Width="100" DisplayMemberBinding="{Binding Back}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button x:Name="closeBtn" Content="Close" Grid.Row="2"
+                HorizontalAlignment="Left" Margin="189,9.8,0,10.2" 
+                Width="84" Click="closeBtn_Click"/>
+    </Grid>
+</Window>
