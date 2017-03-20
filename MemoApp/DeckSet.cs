@@ -68,6 +68,20 @@ namespace MemoApp
             return true;
         }
 
+        public bool GetDeckCount(out int count)
+        {
+            count = DeckList.Count;
+
+            return true;
+        }
+
+        public bool GetAllDecks(out List<Deck> list)
+        {
+            list = new List<Deck>(DeckList);
+
+            return true;
+        }
+
         public bool AddCard(int deckInd, string front, string back)
         {
             if ((DeckList.Count <= deckInd) || (deckInd < 0)) return false;

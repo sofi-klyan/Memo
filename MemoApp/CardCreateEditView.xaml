@@ -24,9 +24,9 @@
                HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="42" Margin="31,3,0,0" />
         <Label x:Name="backLbl" Content="Back" Grid.Row="0" Grid.Column="1" 
                HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="42" Margin="31.2,3,0,0" />
-        <TextBox x:Name="frontTxtBox" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0"  Text="{Binding Path=FrontText}"
+        <TextBox x:Name="frontTxtBox" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0"  Text="{Binding Path=Info.Front}"
                  Height="45" TextWrapping="Wrap"  VerticalAlignment="Top" Width="81" Margin="10,4.8,0,0"/>
-        <TextBox x:Name="backTxtBox" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" Text="{Binding Path=BackText}"
+        <TextBox x:Name="backTxtBox" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" Text="{Binding Path=Info.Back}"
                  Height="45" TextWrapping="Wrap" VerticalAlignment="Top" Width="81" Margin="10,4.8,0,0"/>
 
         <Button x:Name="okBtn" Content="OK" Grid.Row="2" Grid.Column="0" 

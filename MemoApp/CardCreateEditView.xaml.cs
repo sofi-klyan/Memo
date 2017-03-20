@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 namespace MemoApp
 {
@@ -19,19 +20,82 @@ namespace MemoApp
     /// Interaction logic for DeckCreation.xaml
     /// </summary>
     
-    public class CardEditInfo
+  
+
+    public class CardEditInfo : INotifyPropertyChanged
     {
-        public bool Edit;
-        public int CardID;
-        public string Front;
-        public string Back;
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void Notify(string propertyName)
+        {
+            if (this.PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        public bool Edit
+        {
+            get { return _edit; }
+            set
+            {
+                if (value != _edit)
+                {
+                    _edit = value;
+                    Notify("Edit");
+                }
+            }
+        }
+        private bool _edit = false;
+
+        public int CardID
+        {
+            get { return _cardID; }
+            set
+            {
+                if (value != _cardID)
+                {
+                    _cardID = value;
+                    Notify("CardID");
+                }
+            }
+        }
+        private int _cardID = -1;
+
+        public string Front
+        {
+            get { return _front; }
+            set
+            {
+                if (value != _front)
+                {
+                    _front = value;
+                    Notify("Front");
+                }
+            }
+        }
+        private string _front = "";
+
+        public string Back
+        {
+            get { return _back; }
+            set
+            {
+                if (value != _back)
+                {
+                    _back = value;
+                    Notify("Back");
+                }
+            }
+        }
+        private string _back = "";
 
         public CardEditInfo(
-            bool edit = false,
-            int cardID = -1,
-            string front = "",
-            string back = ""
-            )
+             bool edit = false,
+             int cardID = -1,
+             string front = "",
+             string back = ""
+             )
         {
             Edit = edit;
             CardID = cardID;
@@ -42,22 +106,18 @@ namespace MemoApp
 
     public partial class CardCreateEditView : Window
     {
+        public CardEditInfo Info { get; set; }
+
         private DeckSet manager;
         private int deckInd;
-        private bool edit;
-        private int cardID;
-
-        public string FrontText, BackText;
-
+       
         public CardCreateEditView(DeckSet mgr, int ind, CardEditInfo info)
         {
             InitializeComponent();
-            manager = mgr;
+
             deckInd = ind;
-            edit = info.Edit;
-            cardID = info.CardID;
-            FrontText = info.Front;
-            BackText = info.Back;
+            manager = mgr;
+            Info = info;
 
             this.DataContext = this;
         }
@@ -67,9 +127,9 @@ namespace MemoApp
             if (manager != null)               
             {
                 bool res = false;
-                if (edit)
+                if (Info.Edit)
                 {
-                    res = manager.ReplaceCard(deckInd, cardID, frontTxtBox.Text, backTxtBox.Text);
+                    res = manager.ReplaceCard(deckInd, Info.CardID, frontTxtBox.Text, backTxtBox.Text);
                 }
                 else
                 {

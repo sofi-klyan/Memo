@@ -64,18 +64,18 @@ namespace MemoApp
             return true;
         }
 
-        public bool DeleteCard (int ind)
+        public bool DeleteCard (int id)
         {
-            if (!CardDict.ContainsKey(ind)) return false;
+            if (!CardDict.ContainsKey(id)) return false;
             if (DB != null)
             {
-                if (!DB.DeleteRecord(Name, ind))
+                if (!DB.DeleteRecord(Name, id))
                 {
                     //error while adding a record
                     throw new Exception("could not delete a record from db");
                 }
             }
-            CardDict.Remove(ind);
+            CardDict.Remove(id);
             return true;
         }
 
@@ -118,6 +118,20 @@ namespace MemoApp
 
             id = CardDict.Last().Key;
             card = CardDict.Last().Value;            
+            return true;
+        }
+
+        public bool GetCardCount(out int count)
+        {
+            count = CardDict.Count;
+
+            return true;
+        }
+
+        public bool GetAllCards (out Dictionary<int, Card> dict)
+        {
+            dict = new Dictionary<int, Card>(CardDict);
+
             return true;
         }
 
