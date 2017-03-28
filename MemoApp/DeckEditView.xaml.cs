@@ -102,7 +102,7 @@ namespace MemoApp
             int cardInd = CardListView.SelectedIndex;
             int cardID = CardCollection[CardListView.SelectedIndex].ID;
 
-            CardCollection.RemoveAt(deckInd);
+            CardCollection.RemoveAt(cardInd);
             manager.DeleteCard(deckInd, cardID);
         }
 
@@ -121,7 +121,8 @@ namespace MemoApp
                 Dictionary<int, Card> dict;
                 if (deck.GetAllCards(out dict))
                 {
-                    foreach (var item in dict)
+                    SortedDictionary<int, Card> sortedDict = new SortedDictionary<int, Card>(dict);
+                    foreach (var item in sortedDict)
                     {
                         CardCollection.Add(new CardPresenter(item.Key, item.Value));
                     }

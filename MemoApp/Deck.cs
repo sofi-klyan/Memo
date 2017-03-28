@@ -19,16 +19,19 @@ namespace MemoApp
     }
 
     public class Deck
-    {
-        private Dictionary<int, Card> CardDict { get; set; }
+    {       
         public string Name { get; set; }
         public DBWrapper DB;
+
+        private Dictionary<int, Card> CardDict { get; set; }
+        private int maxInd;
 
         public Deck(string name, DBWrapper db = null)
         {
             CardDict = new Dictionary<int, Card>();
             Name = name;
             DB = db;
+            maxInd = -1;
         }
         
 
@@ -76,6 +79,8 @@ namespace MemoApp
                 }
             }
             CardDict.Remove(id);
+            if (id == maxInd) maxInd--;
+
             return true;
         }
 
@@ -116,8 +121,8 @@ namespace MemoApp
                 return false;
             }
 
-            id = CardDict.Last().Key;
-            card = CardDict.Last().Value;            
+            id = maxInd;//CardDict.Keys.Max();
+            card = CardDict[id];            
             return true;
         }
 
@@ -137,8 +142,8 @@ namespace MemoApp
 
         private int getNewInd()
         {
-            if (CardDict.Count > 0) return CardDict.Last().Key + 1;
-            else return 0;
+            maxInd++;
+            return maxInd;            
         }
     }   
 }

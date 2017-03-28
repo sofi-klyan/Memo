@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MemoApp"
       mc:Ignorable="d"
-      Title="Create/Edit a card" Height="183.924" Width="229.386">
+      Title="Create / Edit a card" Height="183.924" Width="229.386">
     <Window.Resources>
         <local:BooleanAndConverter x:Key="BooleanAndConverter" />
     </Window.Resources>
